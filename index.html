@@ -21,6 +21,14 @@
     <source src="diewithsmile.mp3" type="audio/mpeg">
     Seu navegador não suporta o elemento de áudio.
   </audio>
+
+      <script>
+    // Remova o mudo após a página carregar
+    window.addEventListener('load', () => {
+      const audio = document.getElementById('musica');
+      audio.muted = false; // Habilita o som
+    });
+  </script>
 </body>
 </html>
 
