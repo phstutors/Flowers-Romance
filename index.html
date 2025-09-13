@@ -5,9 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/inicio.css" />
   <title>Carta Romântica</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff0f5;
+      text-align: center;
+      padding: 50px;
+    }
+
+    /* Carta Fechada */
+    .closed-letter {
+      width: 300px;
+      height: 200px;
+      margin: 0 auto;
+      background: #e0c3fc;
+      border: 2px solid #a29bfe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      border-radius: 10px;
+      transition: all 0.5s ease;
+    }
+
+    .open-button {
+      padding: 10px 20px;
+      background: #6c5ce7;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* Conteúdo da carta (escondido inicialmente) */
+    .letter-content {
+      display: none;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .heart a {
+      font-size: 2em;
+      color: red;
+      text-decoration: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-  <div class="letter">
+
+  <!-- Carta Fechada -->
+  <div class="closed-letter" id="cartaFechada">
+    <p>Você recebeu uma carta 💌</p>
+    <button class="open-button" onclick="abrirCarta()">Abrir</button>
+  </div>
+
+  <!-- Conteúdo da carta -->
+  <div class="letter-content" id="conteudoCarta">
     <h1>Meu eterno amor,</h1>
     <p>meu querido amor,</p>
 
@@ -28,21 +87,26 @@
     <p>Clique no coração e saiba que ele é todo seu!</p>
   </div>
 
-  <!-- Áudio com ID correto e autoplay -->
-  <audio id="musica" autoplay muted>
+  <!-- Áudio -->
+  <audio id="musica" preload="auto">
     <source src="diewithsmile.mp3" type="audio/mpeg">
     Seu navegador não suporta o elemento de áudio.
   </audio>
 
   <script>
-    // Tenta remover o mute após a interação
-    window.addEventListener('click', () => {
-      const audio = document.getElementById('musica');
-      if (audio.muted) {
+    function abrirCarta() {
+      // Mostrar a carta
+      document.getElementById("cartaFechada").style.display = "none";
+      document.getElementById("conteudoCarta").style.display = "block";
+
+      // Tocar música
+      const audio = document.getElementById("musica");
+      audio.play().catch(() => {
+        // Autoplay pode falhar sem interação, então garantir que está desmutado
         audio.muted = false;
         audio.play();
-      }
-    });
+      });
+    }
   </script>
 </body>
 </html>
